@@ -1,0 +1,67 @@
+
+import pyautogui
+import pyperclip
+import time #permite controlar o tempo de acao especifico
+import pandas as pd #sigla para não escrever pandas sempre
+
+
+pyautogui.PAUSE = 1
+#pause entre cada comando
+
+pyautogui.hotkey("win")
+pyautogui.write("opera gx")
+pyautogui.press("enter")
+pyautogui.hotkey("ctrl", "t")
+pyperclip.copy("https://drive.google.com/drive/folders/149xknr9JvrlEnhNWO49zPcw0PW5icxga")
+#copia o link com os caracteres especiais
+pyautogui.hotkey("ctrl", "v")
+pyautogui.press("enter")
+time.sleep(5)
+print(pyautogui.position())
+pyautogui.click(x=172, y=300, clicks=2)
+pyautogui.click(x=132, y=291, button="left")
+time.sleep(5)
+
+tabela = pd.read_excel(r"E:\downloads\Vendas - Dez.xlsx")
+
+print(tabela)
+
+faturamento= tabela["Valor Final"].sum()# somar
+ # puxa a coluna especifica
+quantidade= tabela["Quantidade"].sum()
+time.sleep(3)
+pyautogui.hotkey("win")
+pyautogui.write("chrome")
+pyautogui.press("enter")
+time.sleep(1)
+pyautogui.click(x=702, y=529)
+pyperclip.copy("https://mail.google.com/mail/u/0/#inbox")
+#copia o link com os caracteres especiais
+pyautogui.hotkey("ctrl", "v")
+pyautogui.press("enter")
+#time.sleep(5)
+#print(pyautogui.position())
+pyautogui.click(x=284, y=236)
+pyautogui.click(x=562, y=407)
+pyautogui.write("email a escolher")
+pyautogui.press("tab") #seleciona email
+pyautogui.press("tab") #pula para o proximo campo
+pyperclip.copy("Relatório de Vendas")
+pyautogui.hotkey("ctrl", "v")
+pyautogui.press("tab")
+
+texto = f"""
+Prezados, Bom dia
+
+Segue relatório de vendas.
+Faturamento: R${faturamento:,.2f}
+Quantidade de produtos vendidos: {quantidade:,}
+
+Qualquer dúvida estou à disposição.
+Att.,
+Bruno"""
+# {variavel} apresenta o valor
+
+pyperclip.copy(texto)
+pyautogui.hotkey("ctrl", "v")
+pyautogui.hotkey("ctrl", "enter")
